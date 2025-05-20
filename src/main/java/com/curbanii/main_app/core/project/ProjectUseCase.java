@@ -29,6 +29,13 @@ public class ProjectUseCase {
     }
 
     public void deleteById(UUID id) {
+        if (projectRepository.findById(id).isEmpty()) {
+            throw new IllegalArgumentException("Project not found");
+        }
+        if (!projectRepository.findById(id).get().getUserId().equals(authenticatedUser.getId())) {
+            throw new IllegalArgumentException("You are not authorized to delete this project");
+        }
+
         projectRepository.deleteById(id);
     }
 

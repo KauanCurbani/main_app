@@ -1,4 +1,4 @@
-package com.curbanii.main_app.core.project.target;
+package com.curbanii.main_app.core.project.internal;
 
 import com.curbanii.main_app.core.project.HttpMethod;
 import jakarta.persistence.*;

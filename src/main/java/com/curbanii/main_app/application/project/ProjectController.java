@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/projects")
 @AllArgsConstructor
 public class ProjectController {
     private final ProjectUseCase projectUseCase;
