@@ -4,6 +4,7 @@ import com.curbanii.main_app.core.project.internal.MonitorTarget;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
@@ -15,8 +16,8 @@ public class MonitorTargetDto {
     private int checkIntervalMinutes;
     private Integer lastStatusCode;
     private Boolean lastIsUp;
-    private String lastCheckedAt;
-    private String createdAt;
+    private Instant lastCheckedAt;
+    private Instant createdAt;
 
     static MonitorTargetDto fromEntity(MonitorTarget monitorTarget) {
         if (monitorTarget == null) return null;
@@ -27,8 +28,8 @@ public class MonitorTargetDto {
                 .checkIntervalMinutes(monitorTarget.getCheckIntervalMinutes())
                 .lastStatusCode(monitorTarget.getLastStatusCode())
                 .lastIsUp(monitorTarget.getLastIsUp())
-                .lastCheckedAt(monitorTarget.getLastCheckedAt().toString())
-                .createdAt(monitorTarget.getCreatedAt().toString())
+                .lastCheckedAt(monitorTarget.getLastCheckedAt())
+                .createdAt(monitorTarget.getCreatedAt())
                 .build();
     }
 }
