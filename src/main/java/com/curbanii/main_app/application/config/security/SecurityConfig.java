@@ -45,6 +45,8 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(HttpMethod.GET, "/healthy")
                     .permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS,"/**")
+                    .permitAll()
                     .anyRequest()
                     .authenticated();
         }).csrf(AbstractHttpConfigurer::disable)
