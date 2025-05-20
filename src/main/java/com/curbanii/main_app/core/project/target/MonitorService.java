@@ -52,13 +52,14 @@ public class MonitorService {
     }
 
     private void logResult(MonitorTarget target, MonitorResult result) {
-        MonitorLog log = new MonitorLog();
-        log.setTargetId(target.getId());
-        log.setTimestamp(Instant.now());
-        log.setStatusCode(result.statusCode());
-        log.setIsUp(result.isUp());
-        log.setResponseTimeMs(result.responseTimeMs());
-        log.setErrorMessage(null);
+        MonitorLog log = MonitorLog.builder()
+                .targetId(target.getId())
+                .timestamp(Instant.now())
+                .statusCode(result.statusCode())
+                .isUp(result.isUp())
+                .responseTimeMs(result.responseTimeMs())
+                .errorMessage(null)
+                .build();
         logUseCase.save(log);
 
         target.setLastStatusCode(result.statusCode());
@@ -68,13 +69,14 @@ public class MonitorService {
     }
 
     private void logFailure(MonitorTarget target, String errorMsg) {
-        MonitorLog log = new MonitorLog();
-        log.setTargetId(target.getId());
-        log.setTimestamp(Instant.now());
-        log.setStatusCode(null);
-        log.setIsUp(false);
-        log.setResponseTimeMs(null);
-        log.setErrorMessage(errorMsg);
+        MonitorLog log = MonitorLog.builder()
+                .targetId(target.getId())
+                .timestamp(Instant.now())
+                .statusCode(null)
+                .isUp(false)
+                .responseTimeMs(null)
+                .errorMessage(errorMsg)
+                .build();
         logUseCase.save(log);
 
         target.setLastStatusCode(null);
