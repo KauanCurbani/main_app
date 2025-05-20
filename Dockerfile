@@ -8,5 +8,5 @@ RUN ./mvnw clean package -DskipTests
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /build/target/*.jar app.jar
-EXPOSE 8080
+EXPOSE 3000
 ENTRYPOINT ["java", "-jar", "app.jar"]
