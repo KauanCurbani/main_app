@@ -3,6 +3,7 @@ package com.curbanii.main_app.core.project.target;
 import com.curbanii.main_app.application.project.target.log.MonitorTargetLogRepoJpa;
 import com.curbanii.main_app.core.project.internal.MonitorLog;
 import com.curbanii.main_app.core.project.internal.MonitorTarget;
+import com.curbanii.main_app.core.project.target.log.MonitorLogRepository;
 import com.curbanii.main_app.core.project.target.log.MonitorLogUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -21,7 +22,7 @@ public class MonitorService {
 
     private final MonitorTargetRepository targetRepo;
     private final HttpChecker httpChecker;
-    private final MonitorLogUseCase logUseCase;
+    private final MonitorLogRepository monitorLogRepository;
 
 
     @Scheduled(fixedDelay = 60000)
@@ -60,7 +61,7 @@ public class MonitorService {
                 .responseTimeMs(result.responseTimeMs())
                 .errorMessage(null)
                 .build();
-        logUseCase.save(log);
+        monitorLogRepository.save(log);
 
         target.setLastStatusCode(result.statusCode());
         target.setLastIsUp(result.isUp());
@@ -77,7 +78,7 @@ public class MonitorService {
                 .responseTimeMs(null)
                 .errorMessage(errorMsg)
                 .build();
-        logUseCase.save(log);
+        monitorLogRepository.save(log);
 
         target.setLastStatusCode(null);
         target.setLastIsUp(false);

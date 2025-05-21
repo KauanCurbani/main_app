@@ -19,6 +19,9 @@ public class AuthenticatedUserImpl implements AuthenticatedUser {
     }
 
     private String getSubjectFromJwtToken() {
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            return null;
+        }
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
