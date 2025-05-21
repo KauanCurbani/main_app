@@ -24,6 +24,13 @@ public class MonitorLogUseCase {
     private final AuthenticatedUser authenticatedUser;
 
     public MonitorLog save(MonitorLog monitorLog) {
+        MonitorTarget monitorTarget = targetRepository.findById(monitorLog.getTargetId()).orElse(null);
+        if (monitorTarget == null) throw new BadRequestException("Monitor target not found");
+        Project project = projectRepository.findById(monitorTarget.getProjectId()).orElse(null);
+        if (project == null) throw new BadRequestException("Project not found");
+        if (!project.getUserId().equals(authenticatedUser.getId())) {
+            throw new BadRequestException("You are not authorized to access this monitor log");
+        }
         return monitorLogRepository.save(monitorLog);
     }
 
