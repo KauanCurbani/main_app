@@ -52,7 +52,7 @@ public class SecurityConfig {
         }).csrf(AbstractHttpConfigurer::disable)
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .cors(AbstractHttpConfigurer::disable);
+                .cors(Customizer.withDefaults());
 
         return http.build();
     }
